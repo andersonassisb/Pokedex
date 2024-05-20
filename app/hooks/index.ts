@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import {
@@ -8,20 +8,19 @@ import {
   selectAllPokemons,
   fetchAll
 } from "../services/middlewares";
-import { IOptionalConfig } from "../services/types";
 
-export function useGetAllPokemons(options: IOptionalConfig) {
+export function useGetAllPokemons() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { data, status } = useSelector((state: RootState) =>
+  const { data, status, offset } = useSelector((state: RootState) =>
     selectAllPokemons(state)
   );
 
   useEffect(() => {
-    if (!status) {
-      dispatch(fetchAll(options));
+    if (status === undefined || status === "fetching") {
+      dispatch(fetchAll({ offset }));
     }
-  }, [status, dispatch, options]);
+  }, [status, dispatch, offset]);
 
   const isUninitialized = status === undefined;
   const isLoading = status === "pending" || status === undefined;
@@ -41,7 +40,7 @@ export function useGetPokemonByNameQuery(name: string) {
   const data = useSelector((state: RootState) => selectDataByName(state, name));
   useEffect(() => {
 
-    if (!status) {
+    if (status === undefined || status === "fetching") {
       dispatch(fetchPokemonByName(name));
     }
   }, [status, name, dispatch]);

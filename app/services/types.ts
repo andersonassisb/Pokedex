@@ -107,7 +107,7 @@ export type PokemonPageResult = {
   results: MinimalLink[];
 };
 
-export type RequestState = 'pending' | 'fulfilled' | 'rejected' | 'idle';
+export type RequestState = 'pending' | 'fulfilled' | 'rejected' | 'idle' | 'fetching';
 
 export type IOptionalConfig = {
   limit?: number;

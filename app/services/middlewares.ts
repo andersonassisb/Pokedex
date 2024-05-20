@@ -13,7 +13,7 @@ export const fetchAll = createAsyncThunk<MinimalLink[], IOptionalConfig>(
     }
     return data.results
   },
-)
+);
 
 export const fetchPokemonByName = createAsyncThunk<Pokemon, string>(
   'pokemon/fetchByName',
@@ -25,30 +25,38 @@ export const fetchPokemonByName = createAsyncThunk<Pokemon, string>(
     }
     return data
   },
-)
+);
 
 // Thunks and action creators
 
 export const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState: {
+    offset: 0,
     data: [] as MinimalLink[],
     status: 'idle' as RequestState,
   },
-  reducers: {},
+  reducers: {
+    incrementOffset(state) {
+      state.status = 'fetching';
+      state.offset += RESULT_LIMIT;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAll.pending, (state) => {
       state.status = 'pending'
     })
     builder.addCase(fetchAll.fulfilled, (state, action) => {
       state.status = 'fulfilled'
-      state.data = action.payload
+      state.data = state.data.concat(action.payload)
     })
     builder.addCase(fetchAll.rejected, (state) => {
       state.status = 'rejected'
     })
   },
-})
+});
+
+export const { incrementOffset } = pokemonsSlice.actions;
 
 export const pokemonSlice = createSlice({
   name: 'pokemon',
@@ -69,7 +77,7 @@ export const pokemonSlice = createSlice({
       state.statusByName[action.meta.arg] = 'rejected'
     })
   },
-})
+});
 
 // selectors 
 
