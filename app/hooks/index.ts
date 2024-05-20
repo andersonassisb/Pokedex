@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import {
-  fetchPokemonByName,
-  selectStatusByName,
+  fetchAll,
   selectDataByName,
   selectAllPokemons,
-  fetchAll
+  fetchPokemonByName,
+  selectStatusByName,
 } from "../services/middlewares";
 
 export function useGetAllPokemons() {

@@ -1,25 +1,34 @@
 import React, { useCallback } from 'react';
 import { StyleSheet, FlatList, View, Text, ListRenderItem, TouchableOpacity } from 'react-native';
 import { useGetAllPokemons } from '../hooks';
-import { RESULT_LIMIT } from '../constants';
 import { MinimalLink } from '../services/types';
 import { Loading } from '../components/loading';
 import { dispatch } from '../store/store';
-import { fetchAll, incrementOffset } from '../services/middlewares';
+import { incrementOffset } from '../services/middlewares';
+import { useNavigation } from '@react-navigation/native';
+import { capitalize } from 'lodash';
+import { HomeScreenNavigationProp } from '../navigation/types';
 
 interface Props {
   testID?: string;
 }
 
 const HomeScreen: React.FC<Props> = ({ testID = 'HomeScreen' }) => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
   const { data, isError, isLoading } = useGetAllPokemons();
 
   const renderItem = useCallback<ListRenderItem<MinimalLink>>(
-    ({ item, index }) => (
-      <TouchableOpacity style={styles.pokemonCard} testID={`${testID}-pokemon-${index}`}>
-        <Text style={styles.text}>{item.name}</Text>
-      </TouchableOpacity>
-    ),
+    ({ item, index }) => {
+      const onPress = () => {
+       navigation.navigate('Details', { title: capitalize(item.name), name: item.name});
+      };
+      return (
+        <TouchableOpacity style={styles.pokemonCard} testID={`${testID}-pokemon-${index}`} onPress={onPress}>
+          <Text style={styles.text}>{item.name}</Text>
+        </TouchableOpacity>
+      )
+    },
     []
   );
 

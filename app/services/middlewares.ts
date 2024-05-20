@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IOptionalConfig, MinimalLink, Pokemon, PokemonPageResult, RequestState } from "./types";
+
 import { RootState } from "../store/store";
 import { RESULT_LIMIT } from "../constants";
+import { IOptionalConfig, MinimalLink, Pokemon, PokemonPageResult, RequestState } from "./types";
 
 export const fetchAll = createAsyncThunk<MinimalLink[], IOptionalConfig>(
   'pokemon/fetchAll',
