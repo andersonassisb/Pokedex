@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 import {
   Text,
   View,
@@ -6,21 +6,21 @@ import {
   StyleSheet,
   ListRenderItem,
   TouchableOpacity,
-} from "react-native";
-import { capitalize } from "lodash";
-import { dispatch } from "../store/store";
-import { useGetAllPokemons } from "../hooks";
-import { Loading } from "../components/loading";
-import { MinimalLink } from "../services/types";
-import { useNavigation } from "@react-navigation/native";
-import { incrementOffset } from "../services/middlewares";
-import { HomeScreenNavigationProp } from "../navigation/types";
+} from 'react-native';
+import { capitalize } from 'lodash';
+import { dispatch } from '../store/store';
+import { useGetAllPokemons } from '../hooks';
+import { Loading } from '../components/loading';
+import { MinimalLink } from '../services/types';
+import { useNavigation } from '@react-navigation/native';
+import { incrementOffset } from '../services/middlewares';
+import { HomeScreenNavigationProp } from '../navigation/types';
 
 interface Props {
   testID?: string;
 }
 
-const HomeScreen: React.FC<Props> = ({ testID = "HomeScreen" }) => {
+const HomeScreen: React.FC<Props> = ({ testID = 'HomeScreen' }) => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const { data, isError, isLoading } = useGetAllPokemons();
@@ -28,7 +28,7 @@ const HomeScreen: React.FC<Props> = ({ testID = "HomeScreen" }) => {
   const renderItem = useCallback<ListRenderItem<MinimalLink>>(
     ({ item, index }) => {
       const onPress = () => {
-        navigation.navigate("Details", {
+        navigation.navigate('Details', {
           title: capitalize(item.name),
           name: item.name,
         });
@@ -88,15 +88,15 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   pokemonCard: {
     padding: 24,
     borderBottomWidth: 1,
-    backgroundColor: "white",
-    borderBottomColor: "#ccc",
+    backgroundColor: 'white',
+    borderBottomColor: '#ccc',
   },
   text: {
-    textTransform: "capitalize",
+    textTransform: 'capitalize',
   },
 });

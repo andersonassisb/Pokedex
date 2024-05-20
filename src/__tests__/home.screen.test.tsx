@@ -1,13 +1,13 @@
-import React from "react";
-import { Provider } from "react-redux";
-import configureStore from "redux-mock-store";
-import { render } from "@testing-library/react";
-import { NavigationContainer } from "@react-navigation/native";
+import React from 'react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { render } from '@testing-library/react';
+import { NavigationContainer } from '@react-navigation/native';
 
-import HomeScreen from "../screens/home.screen";
+import HomeScreen from '../screens/home.screen';
 
 let mockItems: Record<string, any> = {};
-jest.mock("@react-native-async-storage/async-storage", () => ({
+jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn((key: string, item: string) => {
     mockItems[key] = item;
   }),
@@ -31,7 +31,7 @@ const store = mockStore({
   pokemons: {
     data: [],
     offset: 0,
-    status: "idle",
+    status: 'idle',
   },
 });
 
@@ -41,7 +41,7 @@ jest.useFakeTimers({
   legacyFakeTimers: true,
 });
 
-describe.skip("Home Screen", () => {
+describe.skip('Home Screen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -50,7 +50,7 @@ describe.skip("Home Screen", () => {
     jest.resetAllMocks();
   });
 
-  it("should render the Home screen correctly", () => {
+  it('should render the Home screen correctly', () => {
     render(<HomeScreen />, {
       wrapper: ({ children }) => (
         <NavigationContainer>
