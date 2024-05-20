@@ -11,7 +11,9 @@ const Stack = createStackNavigator<RootStackParamList>();
 function StackNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Home" screenOptions={{
+        headerBackTitleVisible: false,
+      }}>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Pokédex' }} />
         <Stack.Screen name="Details" component={DetailsScreen}  options={({ route }) => ({ title: route.params?.title ?? 'Detalhes' })}  />
       </Stack.Navigator>
