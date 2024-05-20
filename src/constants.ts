@@ -1,1 +1,1 @@
-export const RESULT_LIMIT = 20;
+export const RESULT_LIMIT = 10;

@@ -1,16 +1,20 @@
 {
   "extends": "expo/tsconfig.base",
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es2015",
+    "module": "ES2015",
+    "lib": ["es2020"],
+    "allowJs": true,
+    "checkJs": false,
     "jsx": "react",
+    "outDir": "./ts-build/",
     "strict": true
   },
   "include": [
     "./src/**/*.js",
     "./src/**/*.jsx",
     "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./eslint.config.js"
+    "./src/**/*.tsx"
   ]
 }
