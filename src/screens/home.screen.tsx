@@ -46,8 +46,6 @@ const HomeScreen: React.FC<Props> = ({ testID = "HomeScreen" }) => {
     [],
   );
 
-  console.log(data);
-
   const loadMore = () => {
     dispatch(incrementOffset());
   };
