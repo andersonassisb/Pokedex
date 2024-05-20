@@ -38,8 +38,8 @@ export function useGetPokemonByNameQuery(name: string) {
   );
 
   const data = useSelector((state: RootState) => selectDataByName(state, name));
-  useEffect(() => {
 
+  useEffect(() => {
     if (status === undefined || status === "fetching") {
       dispatch(fetchPokemonByName(name));
     }

@@ -1,19 +1,26 @@
-import React, { useCallback } from 'react';
-import { StyleSheet, FlatList, View, Text, ListRenderItem, TouchableOpacity } from 'react-native';
-import { useGetAllPokemons } from '../hooks';
-import { MinimalLink } from '../services/types';
-import { Loading } from '../components/loading';
-import { dispatch } from '../store/store';
-import { incrementOffset } from '../services/middlewares';
-import { useNavigation } from '@react-navigation/native';
-import { capitalize } from 'lodash';
-import { HomeScreenNavigationProp } from '../navigation/types';
+import React, { useCallback } from "react";
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  ListRenderItem,
+  TouchableOpacity,
+} from "react-native";
+import { capitalize } from "lodash";
+import { dispatch } from "../store/store";
+import { useGetAllPokemons } from "../hooks";
+import { Loading } from "../components/loading";
+import { MinimalLink } from "../services/types";
+import { useNavigation } from "@react-navigation/native";
+import { incrementOffset } from "../services/middlewares";
+import { HomeScreenNavigationProp } from "../navigation/types";
 
 interface Props {
   testID?: string;
 }
 
-const HomeScreen: React.FC<Props> = ({ testID = 'HomeScreen' }) => {
+const HomeScreen: React.FC<Props> = ({ testID = "HomeScreen" }) => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const { data, isError, isLoading } = useGetAllPokemons();
@@ -21,15 +28,22 @@ const HomeScreen: React.FC<Props> = ({ testID = 'HomeScreen' }) => {
   const renderItem = useCallback<ListRenderItem<MinimalLink>>(
     ({ item, index }) => {
       const onPress = () => {
-       navigation.navigate('Details', { title: capitalize(item.name), name: item.name});
+        navigation.navigate("Details", {
+          title: capitalize(item.name),
+          name: item.name,
+        });
       };
       return (
-        <TouchableOpacity style={styles.pokemonCard} testID={`${testID}-pokemon-${index}`} onPress={onPress}>
+        <TouchableOpacity
+          style={styles.pokemonCard}
+          testID={`${testID}-pokemon-${index}`}
+          onPress={onPress}
+        >
           <Text style={styles.text}>{item.name}</Text>
         </TouchableOpacity>
-      )
+      );
     },
-    []
+    [],
   );
 
   console.log(data);
@@ -40,10 +54,8 @@ const HomeScreen: React.FC<Props> = ({ testID = 'HomeScreen' }) => {
 
   const renderFooter = () => {
     if (isLoading) {
-      return (
-        <Loading />
-      );
-    } 
+      return <Loading />;
+    }
     return null;
   };
 
@@ -55,7 +67,7 @@ const HomeScreen: React.FC<Props> = ({ testID = 'HomeScreen' }) => {
       return <Text>Something went wrong</Text>;
     }
     return null;
-  }
+  };
 
   return (
     <View style={styles.container} testID={testID}>
@@ -78,15 +90,15 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   pokemonCard: {
     padding: 24,
     borderBottomWidth: 1,
-    backgroundColor: 'white',
-    borderBottomColor: '#ccc',
+    backgroundColor: "white",
+    borderBottomColor: "#ccc",
   },
   text: {
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
 });

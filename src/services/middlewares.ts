@@ -6,7 +6,7 @@ import { IOptionalConfig, MinimalLink, Pokemon, PokemonPageResult, RequestState 
 
 export const fetchAll = createAsyncThunk<MinimalLink[], IOptionalConfig>(
   'pokemon/fetchAll',
-  async ({limit = RESULT_LIMIT, offset}, { rejectWithValue }) => {
+  async ({ limit = RESULT_LIMIT, offset }, { rejectWithValue }) => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
     const data = await response.json() as PokemonPageResult
     if (response.status < 200 || response.status >= 300) {
