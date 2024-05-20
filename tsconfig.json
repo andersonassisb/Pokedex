@@ -9,7 +9,14 @@
     "checkJs": false,
     "jsx": "react",
     "outDir": "./ts-build/",
-    "strict": true
+    "strict": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": "."
   },
   "include": [
     "./src/**/*.js",
