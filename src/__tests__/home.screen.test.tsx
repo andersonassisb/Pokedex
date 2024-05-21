@@ -6,25 +6,15 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import HomeScreen from '../screens/home.screen';
 
-let mockItems: Record<string, any> = {};
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  setItem: jest.fn((key: string, item: string) => {
-    mockItems[key] = item;
-  }),
-  getItem: jest.fn(async (key: string) => {
-    return Promise.resolve(mockItems[key] ?? null);
-  }),
-  removeItem: jest.fn((key: string) => {
-    delete mockItems[key];
-  }),
-  getAllKeys: jest.fn(() => {
-    return Promise.resolve(Object.keys(mockItems));
-  }),
-  multiGet: jest.fn(() => {
-    const result = Object.keys(mockItems).map((key) => [key, mockItems[key]]);
-    return Promise.resolve(result);
-  }),
-}));
+jest.mock('redux-persist', () => {
+  const originalModule = jest.requireActual('redux-persist');
+  return {
+    ...originalModule,
+    persistReducer: jest
+      .fn()
+      .mockImplementation((config, reducers) => reducers),
+  };
+});
 
 const mockStore = configureStore([]);
 const store = mockStore({
@@ -42,12 +32,8 @@ jest.useFakeTimers({
 });
 
 describe.skip('Home Screen', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   afterAll(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should render the Home screen correctly', async () => {
