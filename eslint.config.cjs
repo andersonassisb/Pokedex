@@ -5,6 +5,7 @@ import jest from "eslint-plugin-jest";
 import react from "eslint-plugin-react";
 import tseslint from "typescript-eslint";
 import prettierConfig from "eslint-config-prettier";
+import testingLibraryConfig from "eslint-plugin-testing-library";
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -59,6 +60,14 @@ export default tseslint.config(
       "react/no-deprecated": 0,
       "no-var": 0,
     },
+    overrides: [
+      {
+        // Test files only
+        files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+        extends: ['plugin:testing-library/react']
+      }
+    ]
   },
   prettierConfig,
+  testingLibraryConfig,
 );
