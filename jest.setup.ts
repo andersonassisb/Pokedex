@@ -25,4 +25,3 @@ afterEach(async () => {
   await AsyncStorage.clear();
   cleanup();
 });
-
